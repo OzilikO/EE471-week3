@@ -1,0 +1,9 @@
+In this exercise, I used Google Antigravity and Claude Code to improve conform_opt.py script according to clean coding practices. 
+Both models immediately identified and fixed the critical code mistakes in the original script.Claude was faster but google uses a pro model and gives more detail when using it. They corrected indendation and spelling errors. Created functions to shorten code. 
+However they were different. 
+Gemini took a more rigorous approach by creating new helper functions,adding detailed type hints (List[Tuple[int, int, str]]), and making functions return command lists for unit testing.
+Claude focused on readability and preserving existing code; it kept the original camelCase function signatures to prevent breaking external callers and structured the code with clean visual section headers and explanatory comments. 
+Overall, working across both platforms was very easy 
+Gemini via Antigravity felt well-suited for automation and performance.
+Claude provided a polished, human-friendly refactor that balanced clean code improvements with practical compability.
+
