@@ -1,0 +1,3 @@
+super() calls the original checkout() from the parent MediaItem!
+We do this because if we edit mediaitem.checkout we want it to also effect super().
+
