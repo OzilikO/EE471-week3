@@ -1,9 +1,17 @@
-from custom_classes import MediaItem, Book, DVD, LibraryCollection
+"""Library Management System - Simulation Script.
+
+Demonstrates library collection management by registering multiple media items,
+simulating checkouts, and querying available titles.
+"""
+
+from custom_classes import Book, DVD, LibraryCollection, MediaItem
 
 
-def main():
+def main() -> None:
+    """Execute the library simulation workflow."""
     my_library = LibraryCollection()
 
+    # Populate collection with diverse media item types (books, movies, and physical games)
     book1 = Book("1984", "George Orwell", 328)
     movie_dvd1 = DVD("Recep Ivedik", "Gokhan Sahan", "156 mins")
     generic_item1 = MediaItem("Monopoly Game", "Hasbro")
@@ -11,16 +19,11 @@ def main():
     movie_dvd2 = DVD("The Matrix", "Wachowskis", "136 mins")
     generic_item2 = MediaItem("Chess Set", "Classic Games Inc.")
 
-
-    my_library.add_item(book1)
-    my_library.add_item(movie_dvd1)
-    my_library.add_item(generic_item1)
-    my_library.add_item(book2)
-    my_library.add_item(movie_dvd2)
-    my_library.add_item(generic_item2)
+    for item in [book1, movie_dvd1, generic_item1, book2, movie_dvd2, generic_item2]:
+        my_library.add_item(item)
     print("Items added to the library.")
 
-    # Put whichever items you want to check out here (1, 2, or more)
+    # Target specific items for batch checkout simulation
     items_to_checkout = [book1, movie_dvd1, book2, movie_dvd2]
 
     print("\nSimulating checkouts...")
