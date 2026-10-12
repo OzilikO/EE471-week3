@@ -1,76 +1,82 @@
+"""Library Management System - Custom Classes Module.
+
+Defines classes representing various media items (books, DVDs, generic items)
+and a collection manager to track availability within a library.
+"""
+
+
 class MediaItem:
-    def __init__(self, title, author, is_available=True):
-        # Initializes with title, author, and boolean is_available defaulting to True.
+    """Represents a generic item in a library collection."""
+
+    def __init__(self, title: str, author: str, is_available: bool = True):
+        """Initialize a media item with metadata and availability status."""
         self.title = title
         self.author = author
         self.is_available = is_available
 
-    def checkout(self):
-        # If available, sets is_available to False and returns "Successful checkout".
-        # If not, returns "Already out".
+    def checkout(self) -> str:
+        """Mark the item as checked out if it is currently available."""
         if self.is_available:
             self.is_available = False
             return "Successful checkout"
-        else:
-            return "Already out"
+        return "Already out"
 
-    def return_item(self):
-        # Sets is_available to True[cite: 1].
+    def return_item(self) -> None:
+        """Mark the item as available in the library collection."""
         self.is_available = True
 
-    def __str__(self):
-        # Overrides string representation to the required format[cite: 1].
+    def __str__(self) -> str:
+        """Return a formatted string displaying title, author, and status."""
         status = "Available" if self.is_available else "Checked Out"
         return f"{self.title} by {self.author} [{status}]"
 
 
-    # Part 3 Additions below:
-
 class Book(MediaItem):
-    def __init__(self, title, author, page_count, is_available=True):
-        super().__init__(title, author, is_available)
-        self.page_count = page_count # Adds an attribute of page_count
+    """Represents a book in the library collection with page count tracking."""
 
-    def __str__(self):
-        # Overrides __str__ to include the page count
+    def __init__(self, title: str, author: str, page_count: int, is_available: bool = True):
+        """Initialize a book instance including its specific page count."""
+        super().__init__(title, author, is_available)
+        self.page_count = page_count
+
+    def __str__(self) -> str:
+        """Return a formatted representation containing the book page count."""
         status = "Available" if self.is_available else "Checked Out"
         return f"{self.title} by {self.author} ({self.page_count} pages) [{status}]"
 
-class DVD(MediaItem):
-    def __init__(self, title, author, duration, is_available=True):
-        super().__init__(title, author, is_available)
-        self.duration = duration # Adds an attribute of duration[cite: 2]
 
-    def checkout(self):
-        # Uses super().checkout() to maintain original logic and preserve the return value[cite: 2]
+class DVD(MediaItem):
+    """Represents a DVD disc with runtime duration and handling instructions."""
+
+    def __init__(self, title: str, author: str, duration: str, is_available: bool = True):
+        """Initialize a DVD instance including its runtime duration."""
+        super().__init__(title, author, is_available)
+        self.duration = duration
+
+    def checkout(self) -> str:
+        """Check out the DVD while issuing physical media handling reminders."""
+        # Delegates state change and status messaging to the parent class
+        # to ensure unified checkout behavior across all media types.
         result = super().checkout()
-        
-        # Prints a reminder every time it is successfully checked out[cite: 2]
+
+        # Physical discs require care instructions only when the checkout actually succeeds.
         if result == "Successful checkout":
             print("Handle with care: Do not scratch the disc.")
-            
+
         return result
 
 
-        #Part 4 Additions below:
-# ... (keep your existing MediaItem, Book, and DVD classes above this) ...
-
 class LibraryCollection:
+    """Manages an inventory of MediaItem instances and their circulation status."""
+
     def __init__(self):
-        # Initializes the container with an empty list
+        """Initialize an empty library collection."""
         self.items = []
 
-    def add_item(self, item):
-        # Adds a MediaItem (or its subclass) to the list
+    def add_item(self, item: MediaItem) -> None:
+        """Add a MediaItem or any of its subclasses to the collection inventory."""
         self.items.append(item)
 
-    def list_available(self):
-        # Returns a list of titles that are currently available[cite: 2]
-        available_titles = []
-        for item in self.items:
-            if item.is_available:
-                available_titles.append(item.title)
-        return available_titles
-        
-        # Note: You can also write this as a one-liner using list comprehension:
-        # return [item.title for item in self.items if item.is_available]
+    def list_available(self) -> list:
+        """Return a list of titles for all items currently available for checkout."""
+        return [item.title for item in self.items if item.is_available]
