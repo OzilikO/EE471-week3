@@ -1,22 +1,30 @@
-from custom_classes import MediaItem
+from custom_classes import MediaItem, Book, DVD, LibraryCollection
+
 
 def main():
-    
-    book = MediaItem("1984", "George Orwell")
-    movie = MediaItem("Interstellar", "Christopher Nolan")
+    my_library = LibraryCollection()
 
-    print("Initial Library Status:")
-    print(book)
-    print(movie)
+    book1 = Book("1984", "George Orwell", 328)
+    movie_dvd = DVD("Recep Ivedik", "Gokhan Sahan", "156 mins")
+    generic_item = MediaItem("Monopoly Game", "Hasbro")
 
-    print("\nSimulating checkout...")
-    
-    checkout_message = book.checkout()
-    print(checkout_message)
+    my_library.add_item(book1)
+    my_library.add_item(movie_dvd)
+    my_library.add_item(generic_item)
+    print("Items added to the library.")
 
-    print("\nUpdated Library Status:")
-    print(book)
-    print(movie)
+    # Put whichever items you want to check out here (1, 2, or more)
+    items_to_checkout = [book1, movie_dvd]
+
+    print("\nSimulating checkouts...")
+    for item in items_to_checkout:
+        status = item.checkout()
+        print(f"Checked out '{item.title}' : {status}")
+
+    print("\nAvailable titles remaining:")
+    available = my_library.list_available()
+    print(available)
+
 
 if __name__ == "__main__":
     main()
